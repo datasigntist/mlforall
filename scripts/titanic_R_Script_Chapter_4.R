@@ -1,12 +1,12 @@
 # 
 #   Created : 30-Nov-2016
 #
-#####################################################
+####Script Part 4.1
 # Loading the Data
 titanicTrainData = read.csv('https://raw.githubusercontent.com/datasigntist/mlforall/master/datasets/train.csv') 
 #####################################################
 
-#####################################################
+####Script Part 4.2
 # Calculating the entropy of the superset
 entropyValue = 
   -sum(
@@ -17,7 +17,7 @@ entropyValue =
 paste('Entropy : ',as.character(entropyValue))
 #####################################################
 
-#####################################################
+####Script Part 4.3
 # Calculating the gini index of the superset
 giniIndexValue = 
   1-sum(
@@ -27,7 +27,7 @@ giniIndexValue =
 paste("Gini Index : ",as.character(giniIndexValue))
 #####################################################
 
-#####################################################
+####Script Part 4.4
 # Calculating the classification error of the superset
 classifErrorValue = 
   1-max(
@@ -37,7 +37,7 @@ classifErrorValue =
 paste("Classification Error : ",as.character(classifErrorValue))
 #####################################################
 
-#####################################################
+####Script Part 4.5
 # Get the entropy value of Sex and Survived which is used for calculating the information gain
 for(rowNum in 
     1:nrow(table(titanicTrainData$Sex,titanicTrainData$Survived)))
@@ -53,7 +53,7 @@ for(rowNum in
 }
 #####################################################
 
-#####################################################
+####Script Part 4.6
 # Get the entropy value of Pclass and Survived which is used for calculating the information gain
 for(rowNum in 
     1:nrow(table(titanicTrainData$Pclass,titanicTrainData$Survived)))
