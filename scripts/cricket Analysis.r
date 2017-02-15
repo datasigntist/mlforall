@@ -288,3 +288,325 @@ testData$PlayedinIndia = as.factor(testData$PlayedinIndia)
 predict(totalRuns_Predictor,newdata=testData)
 ####
 
+####Script Part 3.1.31a
+loop = 1
+didIndiaChase = cricDataSetFilt[loop,]$didIndiaChase
+fileName = paste0(str_extract(cricDataSetFilt[loop,]$ScorecardLink,"[0-9]+"),"_overcomparison.html")
+dataFile = readHTMLTable(fileName)
+tempDataTable = dataFile[[1]]
+tempDataTable = tempDataTable[,1:(ncol(tempDataTable)-1)]
+colnames(tempDataTable) = c('Over_1','Score_1','Runs_1','RunRate_1','Rate_5ov_2','Over_2','Score_2','Runs_2','RunRate_2','Rate_5ov_2','Rate_Req','Runs_Req','Balls_Rem')
+tempDataTable = tempDataTable[-1,]
+tempDataTable$Runs_1 = as.character(tempDataTable$Runs_1)
+tempDataTable$Runs_2 = as.character(tempDataTable$Runs_2)
+tempDataTable$Runs_1 = as.integer(sapply(1:nrow(tempDataTable), function(x) sub('\\*','',tempDataTable[x,]$Runs_1)))
+tempDataTable$Runs_2 = as.integer(sapply(1:nrow(tempDataTable), function(x) sub('\\*','',tempDataTable[x,]$Runs_2)))
+tempDataTable$Score_1 = as.character(tempDataTable$Score_1 )
+tempDataTable$Score_1_Runs = as.integer(sapply(1:nrow(tempDataTable), function(x) str_split(tempDataTable[x,]$Score_1,'/')[[1]][1]))
+tempDataTable$Score_1_Wkts = as.integer(sapply(1:nrow(tempDataTable), function(x) str_split(tempDataTable[x,]$Score_1,'/')[[1]][2]))
+tempDataTable$Score_2 = as.character(tempDataTable$Score_2 )
+tempDataTable$Score_2_Runs = as.integer(sapply(1:nrow(tempDataTable), function(x) str_split(tempDataTable[x,]$Score_2,'/')[[1]][1]))
+tempDataTable$Score_2_Wkts = as.integer(sapply(1:nrow(tempDataTable), function(x) str_split(tempDataTable[x,]$Score_2,'/')[[1]][2]))
+####
+
+####Script Part 3.1.31b
+tempDataTable$Over_1 = as.integer(as.character(tempDataTable$Over_1))
+if (didIndiaChase) {
+  IndiaStats = tempDataTable[,c('Over_1','Runs_2','Score_2_Runs','Score_2_Wkts')]
+  colnames(IndiaStats) = c('Over_1','IND_Runs_Scored','IND_Cumul_Runs_Scored','IND_Wickets_Lost')
+  OtherTeamStats = tempDataTable[,c('Over_1','Runs_1','Score_1_Runs','Score_1_Wkts')]
+  colnames(OtherTeamStats) = c('Over_1','OTH_Runs_Scored','OTH_Cumul_Runs_Scored','OTH_Wickets_Lost')
+} else {
+  IndiaStats = tempDataTable[,c('Over_1','Runs_1','Score_1_Runs','Score_1_Wkts')]
+  colnames(IndiaStats) = c('Over_1','IND_Runs_Scored','IND_Cumul_Runs_Scored','IND_Wickets_Lost')
+  OtherTeamStats = tempDataTable[,c('Over_1','Runs_2','Score_2_Runs','Score_2_Wkts')]
+  colnames(OtherTeamStats) = c('Over_1','OTH_Runs_Scored','OTH_Cumul_Runs_Scored','OTH_Wickets_Lost')
+}
+####
+
+####Script Part 3.1.31c
+IndiaStats$pick = 0
+IndiaStats$pick = IndiaStats$Over_1%%5
+IndiaStats = IndiaStats[IndiaStats$pick==0,]
+OtherTeamStats$pick = 0
+OtherTeamStats$pick =OtherTeamStats$Over_1%%5
+OtherTeamStats = OtherTeamStats[OtherTeamStats$pick==0,]
+####
+
+####Script Part 3.1.31d
+IndiaRuns = c(IndiaStats[!is.na(IndiaStats$IND_Cumul_Runs_Scored),]$IND_Cumul_Runs_Scored,
+              rep(0,10-length(IndiaStats[!is.na(IndiaStats$IND_Cumul_Runs_Scored),]$IND_Cumul_Runs_Scored)))
+OtherTeamRuns = c(OtherTeamStats[!is.na(OtherTeamStats$OTH_Cumul_Runs_Scored),]$OTH_Cumul_Runs_Scored,
+              rep(0,10-length(OtherTeamStats[!is.na(OtherTeamStats$OTH_Cumul_Runs_Scored),]$OTH_Cumul_Runs_Scored)))
+####
+
+####Script Part 3.1.31e
+RunsScored = t(c(IndiaRuns,OtherTeamRuns))
+if (loop == 1) {
+  matchDataFrame = data.frame(cbind(str_extract(cricDataSetFilt[loop,]$ScorecardLink,"[0-9]+"),
+                                    RunsScored,cricDataSetFilt[loop,]$didIndiaWin))
+} else {
+  matchDataFrame = rbind(matchDataFrame,data.frame(cbind(str_extract(cricDataSetFilt[loop,]$ScorecardLink,"[0-9]+"),
+                                                         RunsScored,cricDataSetFilt[loop,]$didIndiaWin)))
+}
+####
+
+####Script Part 3.1.32
+for(loop in 1:nrow(cricDataSetFilt)) {
+  ### Include 3.1.31a minus the loop initialisation
+  ### Include 3.1.31b
+  ### Include 3.1.31c
+  ### Include 3.1.31d
+  ### Include 3.1.31e
+}
+####
+
+####Script Part 3.1.33
+for(loop in 1:nrow(cricDataSetFilt)) {
+  ####Script Part 3.1.31a
+  didIndiaChase = cricDataSetFilt[loop,]$didIndiaChase
+  fileName = paste0(str_extract(cricDataSetFilt[loop,]$ScorecardLink,"[0-9]+"),"_overcomparison.html")
+  dataFile = readHTMLTable(fileName)
+  tempDataTable = dataFile[[1]]
+  tempDataTable = tempDataTable[,1:(ncol(tempDataTable)-1)]
+  colnames(tempDataTable) = c('Over_1','Score_1','Runs_1','RunRate_1','Rate_5ov_2','Over_2','Score_2','Runs_2','RunRate_2','Rate_5ov_2','Rate_Req','Runs_Req','Balls_Rem')
+  tempDataTable = tempDataTable[-1,]
+  tempDataTable$Runs_1 = as.character(tempDataTable$Runs_1)
+  tempDataTable$Runs_2 = as.character(tempDataTable$Runs_2)
+  tempDataTable$Runs_1 = as.integer(sapply(1:nrow(tempDataTable), function(x) sub('\\*','',tempDataTable[x,]$Runs_1)))
+  tempDataTable$Runs_2 = as.integer(sapply(1:nrow(tempDataTable), function(x) sub('\\*','',tempDataTable[x,]$Runs_2)))
+  tempDataTable$Score_1 = as.character(tempDataTable$Score_1 )
+  tempDataTable$Score_1_Runs = as.integer(sapply(1:nrow(tempDataTable), function(x) str_split(tempDataTable[x,]$Score_1,'/')[[1]][1]))
+  tempDataTable$Score_1_Wkts = as.integer(sapply(1:nrow(tempDataTable), function(x) str_split(tempDataTable[x,]$Score_1,'/')[[1]][2]))
+  tempDataTable$Score_2 = as.character(tempDataTable$Score_2 )
+  tempDataTable$Score_2_Runs = as.integer(sapply(1:nrow(tempDataTable), function(x) str_split(tempDataTable[x,]$Score_2,'/')[[1]][1]))
+  tempDataTable$Score_2_Wkts = as.integer(sapply(1:nrow(tempDataTable), function(x) str_split(tempDataTable[x,]$Score_2,'/')[[1]][2]))
+  ####
+  
+  ####Script Part 3.1.31b
+  tempDataTable$Over_1 = as.integer(as.character(tempDataTable$Over_1))
+  if (didIndiaChase) {
+    IndiaStats = tempDataTable[,c('Over_1','Runs_2','Score_2_Runs','Score_2_Wkts')]
+    colnames(IndiaStats) = c('Over_1','IND_Runs_Scored','IND_Cumul_Runs_Scored','IND_Wickets_Lost')
+    OtherTeamStats = tempDataTable[,c('Over_1','Runs_1','Score_1_Runs','Score_1_Wkts')]
+    colnames(OtherTeamStats) = c('Over_1','OTH_Runs_Scored','OTH_Cumul_Runs_Scored','OTH_Wickets_Lost')
+  } else {
+    IndiaStats = tempDataTable[,c('Over_1','Runs_1','Score_1_Runs','Score_1_Wkts')]
+    colnames(IndiaStats) = c('Over_1','IND_Runs_Scored','IND_Cumul_Runs_Scored','IND_Wickets_Lost')
+    OtherTeamStats = tempDataTable[,c('Over_1','Runs_2','Score_2_Runs','Score_2_Wkts')]
+    colnames(OtherTeamStats) = c('Over_1','OTH_Runs_Scored','OTH_Cumul_Runs_Scored','OTH_Wickets_Lost')
+  }
+  ####
+  
+  ####Script Part 3.1.31c
+  IndiaStats$pick = 0
+  IndiaStats$pick = IndiaStats$Over_1%%5
+  IndiaStats = IndiaStats[IndiaStats$pick==0,]
+  OtherTeamStats$pick = 0
+  OtherTeamStats$pick =OtherTeamStats$Over_1%%5
+  OtherTeamStats = OtherTeamStats[OtherTeamStats$pick==0,]
+  ####
+  
+  ####Script Part 3.1.31d
+  IndiaRuns = c(IndiaStats[!is.na(IndiaStats$IND_Cumul_Runs_Scored),]$IND_Cumul_Runs_Scored,
+                rep(0,10-length(IndiaStats[!is.na(IndiaStats$IND_Cumul_Runs_Scored),]$IND_Cumul_Runs_Scored)))
+  OtherTeamRuns = c(OtherTeamStats[!is.na(OtherTeamStats$OTH_Cumul_Runs_Scored),]$OTH_Cumul_Runs_Scored,
+                    rep(0,10-length(OtherTeamStats[!is.na(OtherTeamStats$OTH_Cumul_Runs_Scored),]$OTH_Cumul_Runs_Scored)))
+  ####
+  
+  ####Script Part 3.1.31e
+  RunsScored = t(c(IndiaRuns,OtherTeamRuns))
+  if (loop == 1) {
+    matchDataFrame = data.frame(cbind(str_extract(cricDataSetFilt[loop,]$ScorecardLink,"[0-9]+"),
+                                      RunsScored,cricDataSetFilt[loop,]$didIndiaWin))
+  } else {
+    matchDataFrame = rbind(matchDataFrame,data.frame(cbind(str_extract(cricDataSetFilt[loop,]$ScorecardLink,"[0-9]+"),
+                                                           RunsScored,cricDataSetFilt[loop,]$didIndiaWin)))
+  }
+  ####
+  
+  
+  }
+####
+
+####Script Part 3.1.34
+for (loop in 2:21)
+{
+  matchDataFrame[,loop] = as.numeric(as.character(matchDataFrame[,loop]))
+}
+####
+
+####Script Part 3.1.35
+library(ggplot2)
+library(rpart)
+library(rattle)
+library(rpart.plot)
+library(RColorBrewer)
+####
+
+####Script Part 3.1.36
+cricketTreeIndiainnings = rpart(X22 ~ ., data = matchDataFrame[,c(2:11,22)],method = "class")
+fancyRpartPlot(cricketTreeIndiainnings)
+####
+
+####Script Part 3.1.37
+cricketTreeOtherTeaminnings = rpart(X22 ~ ., data = matchDataFrame[,c(12:21,22)],method = "class")
+fancyRpartPlot(cricketTreeOtherTeaminnings)
+####
+
+
+####Script Part 3.1.31d1
+IndiaRunRate = c(IndiaStats[!is.na(IndiaStats$IND_Cumul_Runs_Scored),]$IND_Cumul_Runs_Scored/
+                   IndiaStats[!is.na(IndiaStats$IND_Cumul_Runs_Scored),]$Over_1,
+              rep(0,10-length(IndiaStats[!is.na(IndiaStats$IND_Cumul_Runs_Scored),]$IND_Cumul_Runs_Scored)))
+
+OtherTeamRunRate = c(OtherTeamStats[!is.na(OtherTeamStats$OTH_Cumul_Runs_Scored),]$OTH_Cumul_Runs_Scored/
+                    OtherTeamStats[!is.na(OtherTeamStats$OTH_Cumul_Runs_Scored),]$Over_1,
+                  rep(0,10-length(OtherTeamStats[!is.na(OtherTeamStats$OTH_Cumul_Runs_Scored),]$OTH_Cumul_Runs_Scored)))
+####
+
+####Script Part 3.1.31d2
+IndiaFallOfWickets = c(IndiaStats[!is.na(IndiaStats$IND_Cumul_Runs_Scored),]$IND_Wickets_Lost,
+              rep(0,10-length(IndiaStats[!is.na(IndiaStats$IND_Cumul_Runs_Scored),]$IND_Cumul_Runs_Scored)))
+
+OtherTeamFallOfWickets = c(OtherTeamStats[!is.na(OtherTeamStats$OTH_Cumul_Runs_Scored),]$OTH_Wickets_Lost,
+                  rep(0,10-length(OtherTeamStats[!is.na(OtherTeamStats$OTH_Cumul_Runs_Scored),]$OTH_Cumul_Runs_Scored)))
+
+####
+
+####Script Part 3.1.31d3
+IndiaLast10OversData = c(IndiaLast10Overs[!is.na(IndiaLast10Overs$IND_Runs_Scored),]$IND_Runs_Scored,
+                         rep(0,10-length(IndiaLast10Overs[!is.na(IndiaLast10Overs$IND_Runs_Scored),]$IND_Runs_Scored)))
+
+OtherTeamStats10OversData = c(OtherTeamStats10Overs[!is.na(OtherTeamStats10Overs$OTH_Runs_Scored),]$OTH_Runs_Scored,
+                              rep(0,10-length(OtherTeamStats10Overs[!is.na(OtherTeamStats10Overs$OTH_Runs_Scored),]$OTH_Runs_Scored)))
+
+####
+
+####Script Part 3.1.31e1
+RunsScored = t(c(IndiaRuns,IndiaRunRate,IndiaLast10OversData,IndiaFallOfWickets,
+                 OtherTeamRuns,OtherTeamRunRate,OtherTeamStats10OversData,OtherTeamFallOfWickets))
+if (loop == 1) {
+  matchDataFrame = data.frame(cbind(str_extract(cricDataSetFilt[loop,]$ScorecardLink,"[0-9]+"),
+                                    RunsScored,cricDataSetFilt[loop,]$didIndiaWin))
+} else {
+  matchDataFrame = rbind(matchDataFrame,data.frame(cbind(str_extract(cricDataSetFilt[loop,]$ScorecardLink,"[0-9]+"),
+                                                         RunsScored,cricDataSetFilt[loop,]$didIndiaWin)))
+}
+####
+
+####Script Part 3.1.38
+for(loop in 1:nrow(cricDataSetFilt)) {
+  ####Script Part 3.1.31a
+  didIndiaChase = cricDataSetFilt[loop,]$didIndiaChase
+  fileName = paste0(str_extract(cricDataSetFilt[loop,]$ScorecardLink,"[0-9]+"),"_overcomparison.html")
+  dataFile = readHTMLTable(fileName)
+  tempDataTable = dataFile[[1]]
+  tempDataTable = tempDataTable[,1:(ncol(tempDataTable)-1)]
+  colnames(tempDataTable) = c('Over_1','Score_1','Runs_1','RunRate_1','Rate_5ov_2','Over_2','Score_2','Runs_2','RunRate_2','Rate_5ov_2','Rate_Req','Runs_Req','Balls_Rem')
+  tempDataTable = tempDataTable[-1,]
+  tempDataTable$Runs_1 = as.character(tempDataTable$Runs_1)
+  tempDataTable$Runs_2 = as.character(tempDataTable$Runs_2)
+  tempDataTable$Runs_1 = as.integer(sapply(1:nrow(tempDataTable), function(x) sub('\\*','',tempDataTable[x,]$Runs_1)))
+  tempDataTable$Runs_2 = as.integer(sapply(1:nrow(tempDataTable), function(x) sub('\\*','',tempDataTable[x,]$Runs_2)))
+  tempDataTable$Score_1 = as.character(tempDataTable$Score_1 )
+  tempDataTable$Score_1_Runs = as.integer(sapply(1:nrow(tempDataTable), function(x) str_split(tempDataTable[x,]$Score_1,'/')[[1]][1]))
+  tempDataTable$Score_1_Wkts = as.integer(sapply(1:nrow(tempDataTable), function(x) str_split(tempDataTable[x,]$Score_1,'/')[[1]][2]))
+  tempDataTable$Score_2 = as.character(tempDataTable$Score_2 )
+  tempDataTable$Score_2_Runs = as.integer(sapply(1:nrow(tempDataTable), function(x) str_split(tempDataTable[x,]$Score_2,'/')[[1]][1]))
+  tempDataTable$Score_2_Wkts = as.integer(sapply(1:nrow(tempDataTable), function(x) str_split(tempDataTable[x,]$Score_2,'/')[[1]][2]))
+  ####
+  
+  ####Script Part 3.1.31b
+  tempDataTable$Over_1 = as.integer(as.character(tempDataTable$Over_1))
+  if (didIndiaChase) {
+    IndiaStats = tempDataTable[,c('Over_1','Runs_2','Score_2_Runs','Score_2_Wkts')]
+    colnames(IndiaStats) = c('Over_1','IND_Runs_Scored','IND_Cumul_Runs_Scored','IND_Wickets_Lost')
+    OtherTeamStats = tempDataTable[,c('Over_1','Runs_1','Score_1_Runs','Score_1_Wkts')]
+    colnames(OtherTeamStats) = c('Over_1','OTH_Runs_Scored','OTH_Cumul_Runs_Scored','OTH_Wickets_Lost')
+  } else {
+    IndiaStats = tempDataTable[,c('Over_1','Runs_1','Score_1_Runs','Score_1_Wkts')]
+    colnames(IndiaStats) = c('Over_1','IND_Runs_Scored','IND_Cumul_Runs_Scored','IND_Wickets_Lost')
+    OtherTeamStats = tempDataTable[,c('Over_1','Runs_2','Score_2_Runs','Score_2_Wkts')]
+    colnames(OtherTeamStats) = c('Over_1','OTH_Runs_Scored','OTH_Cumul_Runs_Scored','OTH_Wickets_Lost')
+  }
+  ####
+  
+  ####Script Part 3.1.31c
+  IndiaLast10Overs = IndiaStats[IndiaStats$Over_1>=41,]
+  IndiaStats$pick = 0
+  IndiaStats$pick = IndiaStats$Over_1%%5
+  IndiaStats = IndiaStats[IndiaStats$pick==0,]
+  OtherTeamStats10Overs = OtherTeamStats[OtherTeamStats$Over_1>=41,]
+  OtherTeamStats$pick = 0
+  OtherTeamStats$pick =OtherTeamStats$Over_1%%5
+  OtherTeamStats = OtherTeamStats[OtherTeamStats$pick==0,]
+  ####
+  
+  ####Script Part 3.1.31d
+  IndiaRuns = c(IndiaStats[!is.na(IndiaStats$IND_Cumul_Runs_Scored),]$IND_Cumul_Runs_Scored,
+                rep(0,10-length(IndiaStats[!is.na(IndiaStats$IND_Cumul_Runs_Scored),]$IND_Cumul_Runs_Scored)))
+  OtherTeamRuns = c(OtherTeamStats[!is.na(OtherTeamStats$OTH_Cumul_Runs_Scored),]$OTH_Cumul_Runs_Scored,
+                    rep(0,10-length(OtherTeamStats[!is.na(OtherTeamStats$OTH_Cumul_Runs_Scored),]$OTH_Cumul_Runs_Scored)))
+  ####
+  
+  ####Script Part 3.1.31d1
+  IndiaRunRate = c(IndiaStats[!is.na(IndiaStats$IND_Cumul_Runs_Scored),]$IND_Cumul_Runs_Scored/
+                     IndiaStats[!is.na(IndiaStats$IND_Cumul_Runs_Scored),]$Over_1,
+                   rep(0,10-length(IndiaStats[!is.na(IndiaStats$IND_Cumul_Runs_Scored),]$IND_Cumul_Runs_Scored)))
+  
+  OtherTeamRunRate = c(OtherTeamStats[!is.na(OtherTeamStats$OTH_Cumul_Runs_Scored),]$OTH_Cumul_Runs_Scored/
+                         OtherTeamStats[!is.na(OtherTeamStats$OTH_Cumul_Runs_Scored),]$Over_1,
+                       rep(0,10-length(OtherTeamStats[!is.na(OtherTeamStats$OTH_Cumul_Runs_Scored),]$OTH_Cumul_Runs_Scored)))
+  ####
+  
+  ####Script Part 3.1.31d2
+  IndiaFallOfWickets = c(IndiaStats[!is.na(IndiaStats$IND_Cumul_Runs_Scored),]$IND_Wickets_Lost,
+                         rep(0,10-length(IndiaStats[!is.na(IndiaStats$IND_Cumul_Runs_Scored),]$IND_Cumul_Runs_Scored)))
+  
+  OtherTeamFallOfWickets = c(OtherTeamStats[!is.na(OtherTeamStats$OTH_Cumul_Runs_Scored),]$OTH_Wickets_Lost,
+                             rep(0,10-length(OtherTeamStats[!is.na(OtherTeamStats$OTH_Cumul_Runs_Scored),]$OTH_Cumul_Runs_Scored)))
+  
+  ####
+  
+  ####Script Part 3.1.31d3
+  IndiaLast10OversData = c(IndiaLast10Overs[!is.na(IndiaLast10Overs$IND_Runs_Scored),]$IND_Runs_Scored,
+                         rep(0,10-length(IndiaLast10Overs[!is.na(IndiaLast10Overs$IND_Runs_Scored),]$IND_Runs_Scored)))
+  
+  OtherTeamStats10OversData = c(OtherTeamStats10Overs[!is.na(OtherTeamStats10Overs$OTH_Runs_Scored),]$OTH_Runs_Scored,
+                             rep(0,10-length(OtherTeamStats10Overs[!is.na(OtherTeamStats10Overs$OTH_Runs_Scored),]$OTH_Runs_Scored)))
+  
+  ####
+  
+  ####Script Part 3.1.31e1
+  RunsScored = t(c(IndiaRuns,IndiaRunRate,IndiaLast10OversData,IndiaFallOfWickets,
+                   OtherTeamRuns,OtherTeamRunRate,OtherTeamStats10OversData,OtherTeamFallOfWickets))
+  if (loop == 1) {
+    matchDataFrame = data.frame(cbind(str_extract(cricDataSetFilt[loop,]$ScorecardLink,"[0-9]+"),
+                                      RunsScored,cricDataSetFilt[loop,]$didIndiaWin))
+  } else {
+    matchDataFrame = rbind(matchDataFrame,data.frame(cbind(str_extract(cricDataSetFilt[loop,]$ScorecardLink,"[0-9]+"),
+                                                           RunsScored,cricDataSetFilt[loop,]$didIndiaWin)))
+  }
+  ####
+  
+  
+}
+####
+
+####Script Part 3.1.39
+for (loop in 2:81)
+{
+  matchDataFrame[,loop] = as.numeric(as.character(matchDataFrame[,loop]))
+}
+####
+
+####Script Part 3.1.40
+cricketTreeOtherTeaminnings = rpart(X82 ~ ., data = matchDataFrame[,c(72:81,82)],method = "class")
+fancyRpartPlot(cricketTreeOtherTeaminnings)
+####
+
+
+
+
+
