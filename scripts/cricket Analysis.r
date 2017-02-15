@@ -1,5 +1,6 @@
 # 
 #   Created : 19-Jan-2017
+#   Updated : 15-Feb-2017
 #
 ####Script Part 3.1.1
 # Set the current working directory
