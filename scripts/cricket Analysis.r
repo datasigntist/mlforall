@@ -335,9 +335,9 @@ OtherTeamStats = OtherTeamStats[OtherTeamStats$pick==0,]
 
 ####Script Part 3.1.31d
 IndiaRuns = c(IndiaStats[!is.na(IndiaStats$IND_Cumul_Runs_Scored),]$IND_Cumul_Runs_Scored,
-              rep(0,10-length(IndiaStats[!is.na(IndiaStats$IND_Cumul_Runs_Scored),]$IND_Cumul_Runs_Scored)))
+              rep(NA,10-length(IndiaStats[!is.na(IndiaStats$IND_Cumul_Runs_Scored),]$IND_Cumul_Runs_Scored)))
 OtherTeamRuns = c(OtherTeamStats[!is.na(OtherTeamStats$OTH_Cumul_Runs_Scored),]$OTH_Cumul_Runs_Scored,
-              rep(0,10-length(OtherTeamStats[!is.na(OtherTeamStats$OTH_Cumul_Runs_Scored),]$OTH_Cumul_Runs_Scored)))
+              rep(NA,10-length(OtherTeamStats[!is.na(OtherTeamStats$OTH_Cumul_Runs_Scored),]$OTH_Cumul_Runs_Scored)))
 ####
 
 ####Script Part 3.1.31e
@@ -409,9 +409,9 @@ for(loop in 1:nrow(cricDataSetFilt)) {
   
   ####Script Part 3.1.31d
   IndiaRuns = c(IndiaStats[!is.na(IndiaStats$IND_Cumul_Runs_Scored),]$IND_Cumul_Runs_Scored,
-                rep(0,10-length(IndiaStats[!is.na(IndiaStats$IND_Cumul_Runs_Scored),]$IND_Cumul_Runs_Scored)))
+                rep(NA,10-length(IndiaStats[!is.na(IndiaStats$IND_Cumul_Runs_Scored),]$IND_Cumul_Runs_Scored)))
   OtherTeamRuns = c(OtherTeamStats[!is.na(OtherTeamStats$OTH_Cumul_Runs_Scored),]$OTH_Cumul_Runs_Scored,
-                    rep(0,10-length(OtherTeamStats[!is.na(OtherTeamStats$OTH_Cumul_Runs_Scored),]$OTH_Cumul_Runs_Scored)))
+                    rep(NA,10-length(OtherTeamStats[!is.na(OtherTeamStats$OTH_Cumul_Runs_Scored),]$OTH_Cumul_Runs_Scored)))
   ####
   
   ####Script Part 3.1.31e
@@ -476,10 +476,10 @@ OtherTeamFallOfWickets = c(OtherTeamStats[!is.na(OtherTeamStats$OTH_Cumul_Runs_S
 
 ####Script Part 3.1.31d3
 IndiaLast10OversData = c(IndiaLast10Overs[!is.na(IndiaLast10Overs$IND_Runs_Scored),]$IND_Runs_Scored,
-                         rep(0,10-length(IndiaLast10Overs[!is.na(IndiaLast10Overs$IND_Runs_Scored),]$IND_Runs_Scored)))
+                         rep(NA,10-length(IndiaLast10Overs[!is.na(IndiaLast10Overs$IND_Runs_Scored),]$IND_Runs_Scored)))
 
 OtherTeamStats10OversData = c(OtherTeamStats10Overs[!is.na(OtherTeamStats10Overs$OTH_Runs_Scored),]$OTH_Runs_Scored,
-                              rep(0,10-length(OtherTeamStats10Overs[!is.na(OtherTeamStats10Overs$OTH_Runs_Scored),]$OTH_Runs_Scored)))
+                              rep(NA,10-length(OtherTeamStats10Overs[!is.na(OtherTeamStats10Overs$OTH_Runs_Scored),]$OTH_Runs_Scored)))
 
 ####
 
@@ -545,36 +545,36 @@ for(loop in 1:nrow(cricDataSetFilt)) {
   
   ####Script Part 3.1.31d
   IndiaRuns = c(IndiaStats[!is.na(IndiaStats$IND_Cumul_Runs_Scored),]$IND_Cumul_Runs_Scored,
-                rep(0,10-length(IndiaStats[!is.na(IndiaStats$IND_Cumul_Runs_Scored),]$IND_Cumul_Runs_Scored)))
+                rep(NA,10-length(IndiaStats[!is.na(IndiaStats$IND_Cumul_Runs_Scored),]$IND_Cumul_Runs_Scored)))
   OtherTeamRuns = c(OtherTeamStats[!is.na(OtherTeamStats$OTH_Cumul_Runs_Scored),]$OTH_Cumul_Runs_Scored,
-                    rep(0,10-length(OtherTeamStats[!is.na(OtherTeamStats$OTH_Cumul_Runs_Scored),]$OTH_Cumul_Runs_Scored)))
+                    rep(NA,10-length(OtherTeamStats[!is.na(OtherTeamStats$OTH_Cumul_Runs_Scored),]$OTH_Cumul_Runs_Scored)))
   ####
   
   ####Script Part 3.1.31d1
   IndiaRunRate = c(IndiaStats[!is.na(IndiaStats$IND_Cumul_Runs_Scored),]$IND_Cumul_Runs_Scored/
                      IndiaStats[!is.na(IndiaStats$IND_Cumul_Runs_Scored),]$Over_1,
-                   rep(0,10-length(IndiaStats[!is.na(IndiaStats$IND_Cumul_Runs_Scored),]$IND_Cumul_Runs_Scored)))
+                   rep(NA,10-length(IndiaStats[!is.na(IndiaStats$IND_Cumul_Runs_Scored),]$IND_Cumul_Runs_Scored)))
   
   OtherTeamRunRate = c(OtherTeamStats[!is.na(OtherTeamStats$OTH_Cumul_Runs_Scored),]$OTH_Cumul_Runs_Scored/
                          OtherTeamStats[!is.na(OtherTeamStats$OTH_Cumul_Runs_Scored),]$Over_1,
-                       rep(0,10-length(OtherTeamStats[!is.na(OtherTeamStats$OTH_Cumul_Runs_Scored),]$OTH_Cumul_Runs_Scored)))
+                       rep(NA,10-length(OtherTeamStats[!is.na(OtherTeamStats$OTH_Cumul_Runs_Scored),]$OTH_Cumul_Runs_Scored)))
   ####
   
   ####Script Part 3.1.31d2
   IndiaFallOfWickets = c(IndiaStats[!is.na(IndiaStats$IND_Cumul_Runs_Scored),]$IND_Wickets_Lost,
-                         rep(0,10-length(IndiaStats[!is.na(IndiaStats$IND_Cumul_Runs_Scored),]$IND_Cumul_Runs_Scored)))
+                         rep(NA,10-length(IndiaStats[!is.na(IndiaStats$IND_Cumul_Runs_Scored),]$IND_Cumul_Runs_Scored)))
   
   OtherTeamFallOfWickets = c(OtherTeamStats[!is.na(OtherTeamStats$OTH_Cumul_Runs_Scored),]$OTH_Wickets_Lost,
-                             rep(0,10-length(OtherTeamStats[!is.na(OtherTeamStats$OTH_Cumul_Runs_Scored),]$OTH_Cumul_Runs_Scored)))
+                             rep(NA,10-length(OtherTeamStats[!is.na(OtherTeamStats$OTH_Cumul_Runs_Scored),]$OTH_Cumul_Runs_Scored)))
   
   ####
   
   ####Script Part 3.1.31d3
   IndiaLast10OversData = c(IndiaLast10Overs[!is.na(IndiaLast10Overs$IND_Runs_Scored),]$IND_Runs_Scored,
-                         rep(0,10-length(IndiaLast10Overs[!is.na(IndiaLast10Overs$IND_Runs_Scored),]$IND_Runs_Scored)))
+                         rep(NA,10-length(IndiaLast10Overs[!is.na(IndiaLast10Overs$IND_Runs_Scored),]$IND_Runs_Scored)))
   
   OtherTeamStats10OversData = c(OtherTeamStats10Overs[!is.na(OtherTeamStats10Overs$OTH_Runs_Scored),]$OTH_Runs_Scored,
-                             rep(0,10-length(OtherTeamStats10Overs[!is.na(OtherTeamStats10Overs$OTH_Runs_Scored),]$OTH_Runs_Scored)))
+                             rep(NA,10-length(OtherTeamStats10Overs[!is.na(OtherTeamStats10Overs$OTH_Runs_Scored),]$OTH_Runs_Scored)))
   
   ####
   
@@ -602,7 +602,7 @@ for (loop in 2:81)
 ####
 
 ####Script Part 3.1.40
-cricketTreeOtherTeaminnings = rpart(X82 ~ ., data = matchDataFrame[,c(72:81,82)],method = "class")
+cricketTreeOtherTeaminnings = rpart(X82 ~ ., data = matchDataFrame[,c(42:81,82)],method = "class")
 fancyRpartPlot(cricketTreeOtherTeaminnings)
 ####
 
