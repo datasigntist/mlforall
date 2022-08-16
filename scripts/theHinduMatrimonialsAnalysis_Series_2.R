@@ -2,6 +2,8 @@
 #   Created : 30-Nov-2016
 #
 ####Script Part 2.1.1
+# The following code base reflects the method to download the files from an internet resource
+
 # Set the current working directory
 setwd("//Users//vishwanathanraman//Documents//mlforall//datasets//matrimonialads")
 
@@ -12,6 +14,8 @@ bridesWantedFileName = "bridesWantedPage"
 groomsWantedURL= "http://www.thehindu.com/classifieds/matrimonial/?categoryName=bridegroom&pageNo="
 groomsWantedFileName  = "groomsWantedPage"
 groomsWantedEndLoop = 10
+# However the for convenience files can be accessed from the following repository where they have been already downloaded from the website
+# https://github.com/datasigntist/mlforall/tree/master/datasets/matrimonialads
 #####################################################
 
 ####Script Part 2.1.2
